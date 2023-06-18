@@ -10,6 +10,8 @@ pytest
 requests
 scipy
 shapely
-torchsummary
+torch==2.0.1
+torchsummary==1.5.1
+torchvision==0.15.2
 tqdm
 yattag

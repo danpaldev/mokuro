@@ -48,11 +48,11 @@ body {
     border: 1px solid rgba(0, 0, 0, 0);
 }
 
-.textBox:hover {
+/* .textBox:hover {
     background: rgb(255, 255, 255);
     border: 1px solid rgba(0, 0, 0, 0);
     z-index: 999 !important;
-}
+} */
 
 .textBox p {
     display: none;
@@ -67,9 +67,11 @@ body {
     font-size: var(--textBoxFontSize) !important;
 }
 
-.textBox:hover p {
+
+/* Disable showing text when hovering at dialog, just do it when using double click */
+/* .textBox:hover p {
     display: table;
-}
+} */
 
 .hovered {
     background: rgb(255, 255, 255);

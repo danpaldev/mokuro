@@ -110,32 +110,24 @@ function disablePanzoomOnElement(element) {
 }
 
 function initTextBoxes() {
-// Add event listeners for toggling ocr text boxes with the toggleOCRTextBoxes option.
     let textBoxes = document.querySelectorAll('.textBox');
     for (let i = 0; i < textBoxes.length; i++) {
+        //With this each textbox (ocr black box) will be shown/hidden with dblclick
+        textBoxes[i].addEventListener('dblclick', function (e) {
+            this.classList.toggle('hovered');
+        });
+
+        //With this, all the text insid the textbox (ocr black box) will be selected with a click
         textBoxes[i].addEventListener('click', function (e) {
-            if (state.toggleOCRTextBoxes) {
-                this.classList.add('hovered');
-                // Remove hovered state from all other .textBoxes
-                for (let j = 0; j < textBoxes.length; j++) {
-                    if (i !== j) {
-                        textBoxes[j].classList.remove('hovered');
-                    }
-                }
+            if (this.classList.contains('hovered')) {
+                let selection = window.getSelection();
+                let range = document.createRange();
+                range.selectNodeContents(this);
+                selection.removeAllRanges();
+                selection.addRange(range);
             }
         });
     }
-// When clicking off of a .textBox, remove the hovered state.
-    document.addEventListener('click', function (e) {
-        if (state.toggleOCRTextBoxes) {
-            if (e.target.closest('.textBox') === null) {
-                let textBoxes = document.querySelectorAll('.textBox');
-                for (let i = 0; i < textBoxes.length; i++) {
-                    textBoxes[i].classList.remove('hovered');
-                }
-            }
-        }
-    });
 }
 
 function updateProperties() {
@@ -231,12 +223,12 @@ document.getElementById('menuToggleOCRTextBoxes').addEventListener('click', func
 document.getElementById('menuBackgroundColor').addEventListener(
     'input',
     function (event) {
-      state.backgroundColor = event.target.value;
-      saveState();
-      updateProperties();
+        state.backgroundColor = event.target.value;
+        saveState();
+        updateProperties();
     },
     false
-  );
+);
 
 document.getElementById('menuOriginalSize').addEventListener('click', zoomOriginal, false);
 document.getElementById('menuFitToWidth').addEventListener('click', zoomFitToWidth, false);

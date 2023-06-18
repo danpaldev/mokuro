@@ -133,3 +133,4 @@ dmypy.json
 *.jpg
 *.png
 _ocr
+output.md
